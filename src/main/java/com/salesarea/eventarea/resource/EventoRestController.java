@@ -1,10 +1,5 @@
 package com.salesarea.eventarea.resource;
 
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -26,35 +21,18 @@ public class EventoRestController {
 	@Autowired
 	private EventoService eventoService;
 
-	byte[] imgUpload;
-	Evento eventoSalvo;
+	
 
 	@PostMapping
 	public ResponseEntity<Evento> salvar(@RequestBody Evento evento) {
-		if (eventoSalvo == null) {
-			this.eventoSalvo = new Evento();
-		} else {
-			eventoSalvo.setImagem(imgUpload);
-			System.out.println(eventoSalvo.getImagem());
-			eventoSalvo = eventoService.salvarEvento(evento);
-		}
+		Evento eventoSalvo = eventoService.salvarEvento(evento);
 		return ResponseEntity.status(HttpStatus.CREATED).body(eventoSalvo);
 
 	}
 
 	@PostMapping("/imagem")
-	public void adicionarImagem(@RequestBody MultipartFile file) {
-		try {
-			imgUpload = file.getBytes();
-			eventoSalvo = new Evento();
-			/*java.io.File file2 = new java.io.File("C:\\Users\\hamil\\Downloads\\novaimagem.jpg");
-			FileOutputStream in = new FileOutputStream(file2) ;  
-			in.write(imgUpload);
-			in.close();
-			*/
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+	public ResponseEntity<?> adicionarImagem(@RequestBody MultipartFile file) {
+		eventoService.salvarImagem(file);
+		return ResponseEntity.status(HttpStatus.CREATED).build();
 	}
 }

@@ -6,7 +6,7 @@ CREATE TABLE evento(
     hora TIME NOT NULL,
     quantidade_pessoas INTEGER NOT NULL,
     descricao VARCHAR,
-    imagem BYTEA,
+    imagem_path VARCHAR,
     categoria VARCHAR(30) NOT NULL,
     logradouro VARCHAR(50) NOT NULL,
     numero VARCHAR(10) NOT NULL,

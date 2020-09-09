@@ -4,13 +4,11 @@ import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.LocalTime;
 
-import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -36,6 +34,7 @@ public class Evento implements Serializable {
 	@Column(name = "quantidade_pessoas" )
 	private Integer quantidadeMaximaDePessoas;
 	private String descricao;
+	@Column(name = "imagem_path")
 	private String imagemPath;
 	@Enumerated(EnumType.STRING)
 	private Categoria categoria;
