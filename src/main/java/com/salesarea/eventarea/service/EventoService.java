@@ -13,27 +13,28 @@ import com.salesarea.eventarea.repository.EventoRepository;
 
 @Service
 public class EventoService {
-	
-	private static final String path = "C:\\Users\\hamil\\Downloads\\";
+
+	private static final String PATH = "C:\\Users\\hamil\\Downloads\\";
 
 	@Autowired
 	private EventoRepository eventoRepository;
-	
+
 	public Evento salvarEvento(Evento evento) {
 		return eventoRepository.save(evento);
 	}
-	
-	public void salvarImagem(MultipartFile arquivo) {
+
+	public File salvarImagem(MultipartFile arquivo) {
 		byte[] imgUpload;
-		File file = null;
+		File file = new File(PATH + arquivo.getOriginalFilename());
 		try {
 			imgUpload = arquivo.getBytes();
-			file = new File(path + "teste.jpg");
-			FileOutputStream in = new FileOutputStream(file) ;  
+			FileOutputStream in = new FileOutputStream(file);
 			in.write(imgUpload);
 			in.close();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+
+		return file;
 	}
 }
