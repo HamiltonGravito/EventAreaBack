@@ -3,6 +3,8 @@ package com.salesarea.eventarea.service;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -14,8 +16,6 @@ import com.salesarea.eventarea.repository.EventoRepository;
 @Service
 public class EventoService {
 
-	private static final String PATH = "C:\\Users\\hamil\\Downloads\\";
-
 	@Autowired
 	private EventoRepository eventoRepository;
 
@@ -25,16 +25,16 @@ public class EventoService {
 
 	public File salvarImagem(MultipartFile arquivo) {
 		byte[] imgUpload;
-		File file = new File(PATH + arquivo.getOriginalFilename());
+		Path path = Paths.get("src/main/resources/imgtemp/", arquivo.getOriginalFilename());
 		try {
 			imgUpload = arquivo.getBytes();
-			FileOutputStream in = new FileOutputStream(file);
+			FileOutputStream in = new FileOutputStream(path.toFile());
 			in.write(imgUpload);
 			in.close();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 
-		return file;
+		return path.toFile();
 	}
 }
