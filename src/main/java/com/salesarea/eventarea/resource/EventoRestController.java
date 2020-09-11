@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.salesarea.eventarea.aws.S3Service;
 import com.salesarea.eventarea.model.Evento;
 import com.salesarea.eventarea.service.EventoService;
 
@@ -23,6 +24,8 @@ public class EventoRestController {
 
 	@Autowired
 	private EventoService eventoService;
+	@Autowired
+	private S3Service s3Service;
 
 	
 
@@ -30,12 +33,17 @@ public class EventoRestController {
 	public ResponseEntity<Evento> salvar(@RequestBody Evento evento) {
 		Evento eventoSalvo = eventoService.salvarEvento(evento);
 		return ResponseEntity.status(HttpStatus.CREATED).body(eventoSalvo);
-
 	}
 
 	@PostMapping("/imagem")
 	public ResponseEntity<File> adicionarImagem(@RequestParam MultipartFile file) {
 		File arquivo =  eventoService.salvarImagem(file);
+		
+		s3Service.uploadFile(arquivo, arquivo.getName());
+		
 		return ResponseEntity.status(HttpStatus.CREATED).body(arquivo);
 	}
+	
+	
+
 }
