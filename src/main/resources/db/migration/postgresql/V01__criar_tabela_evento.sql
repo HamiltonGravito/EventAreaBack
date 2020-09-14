@@ -16,3 +16,5 @@ CREATE TABLE evento(
     cidade VARCHAR(30) NOT NULL,
     cep VARCHAR(10) NOT NULL
 );
+
+CREATE SEQUENCE imagem_seq START 1 INCREMENT 1;

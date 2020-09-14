@@ -25,7 +25,8 @@ public class EventoService {
 
 	public File salvarImagem(MultipartFile arquivo) {
 		byte[] imgUpload;
-		Path path = Paths.get("src/main/resources/imgtemp/", arquivo.getOriginalFilename());
+		Long proximoId = eventoRepository.correnteValueSeqImagem();
+		Path path = Paths.get("src/main/resources/imgtemp/", String.valueOf(proximoId) + arquivo.getOriginalFilename());
 		try {
 			imgUpload = arquivo.getBytes();
 			FileOutputStream in = new FileOutputStream(path.toFile());
