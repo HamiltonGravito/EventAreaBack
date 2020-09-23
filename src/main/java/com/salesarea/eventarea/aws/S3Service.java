@@ -13,7 +13,7 @@ public class S3Service {
 	@Autowired(required = true)
 	AwsUtil awsUtil;
 	
-	private String urlPadrao = "https://eventarea.s3-sa-east-1.amazonaws.com/";
+	private String urlPadrao = "https://eventarea.s3-us-west-1.amazonaws.com/";
 
 	public String uploadFile(File file, String keyName) {
 		try {

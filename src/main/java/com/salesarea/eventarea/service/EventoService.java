@@ -8,12 +8,14 @@ import java.nio.file.Paths;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.salesarea.eventarea.model.Evento;
 import com.salesarea.eventarea.repository.EventoRepository;
 
 @Service
+@CrossOrigin
 public class EventoService {
 
 	@Autowired
