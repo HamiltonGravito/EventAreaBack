@@ -5,6 +5,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -39,5 +40,10 @@ public class EventoService {
 		}
 
 		return path.toFile();
+	}
+	
+	public List<Evento> retornarEventos(){
+		List<Evento> eventos = eventoRepository.findAll();
+		return eventos;
 	}
 }

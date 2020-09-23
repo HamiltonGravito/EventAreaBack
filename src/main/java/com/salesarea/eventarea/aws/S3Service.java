@@ -13,17 +13,18 @@ public class S3Service {
 	@Autowired(required = true)
 	AwsUtil awsUtil;
 	
-	private String urlPadrao = "https://eventarea.s3-us-west-1.amazonaws.com/";
-
+	private static final String urlPadrao = "https://eventarea.s3-us-west-1.amazonaws.com/";
+	
 	public String uploadFile(File file, String keyName) {
+		String urlAws = null;
 		try {
 			TransferManager tm = TransferManagerBuilder.standard().withS3Client(awsUtil.s3client()).build();
 			Upload upload = tm.upload(awsUtil.getBucket(), keyName, file);
 			upload.waitForCompletion();
-			urlPadrao = urlPadrao + keyName;
+			urlAws = urlPadrao + keyName;
 		} catch (Exception e) {
 			System.out.println("Erro ao Salvar Imagem no S3 AWS" + e);
 		}
-		return urlPadrao;
+		return urlAws;
 	}
 }

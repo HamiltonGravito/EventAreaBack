@@ -1,11 +1,13 @@
 package com.salesarea.eventarea.resource;
 
 import java.io.File;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -37,7 +39,7 @@ public class EventoRestController {
 	@PostMapping("/imagem")
 	public ResponseEntity<String> adicionarImagem(@RequestParam MultipartFile file) {
 		File arquivo = null;
-		String pathAWS = "https://eventarea.s3-sa-east-1.amazonaws.com/";
+		String pathAWS = "https://eventarea.s3-us-west-1.amazonaws.com/";
 		try {
 			arquivo =  eventoService.salvarImagem(file);
 			System.out.println(arquivo.getName());
@@ -50,5 +52,11 @@ public class EventoRestController {
 			}
 		}
 		return ResponseEntity.status(HttpStatus.CREATED).body(pathAWS + arquivo.getName());
+	}
+	
+	@GetMapping
+	public ResponseEntity<List<Evento>> retornarEventos() {
+		List<Evento> eventos = eventoService.retornarEventos();
+		return ResponseEntity.status(HttpStatus.OK).body(eventos);
 	}
 }
